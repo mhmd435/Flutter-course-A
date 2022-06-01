@@ -1,7 +1,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_course_a/providers/ThemeProvider.dart';
+import 'package:flutter_course_a/ui/MainWrapper.dart';
 import 'package:flutter_course_a/ui/ui_helper/ThemeSwitcher.dart';
+import 'package:provider/provider.dart';
+
+
 
 void main(){
   WidgetsFlutterBinding.ensureInitialized();
@@ -9,7 +14,14 @@ void main(){
   SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitUp],
   );
-  runApp(const MyMaterialApp());
+  runApp(
+    MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (context) => ThemeProvider()),
+        ],
+      child: const MyMaterialApp(),
+    )
+  );
 }
 
 
@@ -24,20 +36,22 @@ class MyMaterialApp extends StatefulWidget {
 class _MyMaterialAppState extends State<MyMaterialApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Directionality(
-        textDirection: TextDirection.ltr,
-        child: Scaffold(
-          appBar: AppBar(
-            actions: const [
-              ThemeSwitcher(),
-            ],
-            title: const Text('ExchangeBs'),
-          ),
-          body: Container(),
-        ),
-      ),
+    return Consumer<ThemeProvider>(
+        builder: (context, themeProvider, child){
+          return MaterialApp(
+            themeMode: themeProvider.themeMode,
+            theme: MyThemes.lightTheme,
+            darkTheme: MyThemes.darkTheme,
+            debugShowCheckedModeBanner: false,
+            home: const Directionality(
+              textDirection: TextDirection.ltr,
+              child: MainWrapper(),
+            ),
+          );
+        }
     );
+
+
+
   }
 }
