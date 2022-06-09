@@ -41,6 +41,10 @@ dependencies:
   smooth_page_indicator: ^1.0.0+2
   marquee: ^2.2.1
   dio: ^4.0.0
+  shimmer: ^2.0.0
+  cached_network_image: ^3.2.0
+  flutter_svg: ^1.0.3
+
 
 
 dev_dependencies:
