@@ -43,6 +43,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
 
+    final cryptoProvider = Provider.of<CryptoDataProvider>(context);
+
     var height = MediaQuery.of(context).size.height;
 
     var primaryColor = Theme.of(context).primaryColor;
@@ -157,6 +159,17 @@ class _HomePageState extends State<HomePage> {
                             onSelected: (value){
                               setState(() {
                                 defaultChoiceIndex = value ? index : defaultChoiceIndex;
+                                switch(index){
+                                  case 0:
+                                    cryptoProvider.getTopMarketCapData();
+                                    break;
+                                  case 1:
+                                    cryptoProvider.getTopGainersData();
+                                    break;
+                                  case 2:
+                                    cryptoProvider.getTopLosersData();
+                                    break;
+                                }
                               });
                             }
                         );

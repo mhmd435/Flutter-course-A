@@ -2,8 +2,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_course_a/providers/CryptoDataProvider.dart';
+import 'package:flutter_course_a/providers/MarketViewProvider.dart';
 import 'package:flutter_course_a/providers/ThemeProvider.dart';
+import 'package:flutter_course_a/providers/UserDataProvider.dart';
 import 'package:flutter_course_a/ui/MainWrapper.dart';
+import 'package:flutter_course_a/ui/SignUpScreen.dart';
 import 'package:flutter_course_a/ui/ui_helper/ThemeSwitcher.dart';
 import 'package:provider/provider.dart';
 
@@ -20,6 +23,8 @@ void main(){
         providers: [
           ChangeNotifierProvider(create: (context) => ThemeProvider()),
           ChangeNotifierProvider(create: (context) => CryptoDataProvider()),
+          ChangeNotifierProvider(create: (context) => MarketViewProvider()),
+          ChangeNotifierProvider(create: (context) => UserDataProvider()),
         ],
       child: const MyMaterialApp(),
     )
@@ -47,7 +52,8 @@ class _MyMaterialAppState extends State<MyMaterialApp> {
             debugShowCheckedModeBanner: false,
             home: const Directionality(
               textDirection: TextDirection.ltr,
-              child: MainWrapper(),
+              // child: MainWrapper(),
+              child: SignUpScreen(),
             ),
           );
         }

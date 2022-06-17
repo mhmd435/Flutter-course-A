@@ -44,6 +44,8 @@ dependencies:
   shimmer: ^2.0.0
   cached_network_image: ^3.2.0
   flutter_svg: ^1.0.3
+  lottie: ^1.2.2
+
 
 
 
@@ -74,6 +76,7 @@ flutter:
     - images/a2.png
     - images/a3.png
     - images/a4.png
+    - images/waveloop.json
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
