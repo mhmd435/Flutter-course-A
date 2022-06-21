@@ -77,6 +77,8 @@ flutter:
     - images/a3.png
     - images/a4.png
     - images/waveloop.json
+    - images/bitcointouch.json
+
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
