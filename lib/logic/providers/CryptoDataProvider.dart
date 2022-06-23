@@ -1,8 +1,10 @@
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_course_a/models/CryptoModel/AllCryptoModel.dart';
-import 'package:flutter_course_a/network/ApiProvider.dart';
-import 'package:flutter_course_a/network/ResponseModel.dart';
+
+import '../../data/data_source/ApiProvider.dart';
+import '../../data/data_source/ResponseModel.dart';
+import '../../data/models/CryptoModel/AllCryptoModel.dart';
+import '../../data/repositories/CryproDataRepository.dart';
 
 class CryptoDataProvider extends ChangeNotifier{
   ApiProvider apiProvider = ApiProvider();
@@ -10,6 +12,8 @@ class CryptoDataProvider extends ChangeNotifier{
   late AllCryptoModel dataFuture;
   late ResponseModel state;
   var response;
+
+  CryptoDataRepository repository = CryptoDataRepository();
 
 
   getTopMarketCapData() async {
@@ -38,16 +42,9 @@ class CryptoDataProvider extends ChangeNotifier{
     state = ResponseModel.loading("is Loading...");
 
     try{
-      response = await apiProvider.getTopGainerData();
-
-      if(response.statusCode == 200){
-        dataFuture = AllCryptoModel.fromJson(response.data);
+        dataFuture = await repository.getTopGainerData();
         state = ResponseModel.completed(dataFuture);
-      }else{
-        state = ResponseModel.error("something wrong...");
-      }
-
-      notifyListeners();
+        notifyListeners();
     }catch(e){
       state = ResponseModel.error("please check your connection...");
       notifyListeners();

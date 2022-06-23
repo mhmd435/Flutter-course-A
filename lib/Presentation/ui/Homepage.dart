@@ -1,18 +1,18 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_course_a/helpers/decimalRounder.dart';
-import 'package:flutter_course_a/models/CryptoModel/CryptoData.dart';
-import 'package:flutter_course_a/network/ResponseModel.dart';
-import 'package:flutter_course_a/providers/CryptoDataProvider.dart';
-import 'package:flutter_course_a/ui/ui_helper/HomePageView.dart';
-import 'package:flutter_course_a/ui/ui_helper/ThemeSwitcher.dart';
+import 'package:flutter_course_a/Presentation/ui/ui_helper/HomePageView.dart';
+import 'package:flutter_course_a/Presentation/ui/ui_helper/ThemeSwitcher.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:marquee/marquee.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import '../../data/data_source/ResponseModel.dart';
+import '../../data/models/CryptoModel/CryptoData.dart';
+import '../../logic/providers/CryptoDataProvider.dart';
+import '../helpers/decimalRounder.dart';
 
 
 class HomePage extends StatefulWidget {

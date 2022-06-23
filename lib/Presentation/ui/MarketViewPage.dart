@@ -7,11 +7,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
-
+import '../../data/data_source/ResponseModel.dart';
+import '../../data/models/CryptoModel/CryptoData.dart';
+import '../../logic/providers/MarketViewProvider.dart';
 import '../helpers/decimalRounder.dart';
-import '../models/CryptoModel/CryptoData.dart';
-import '../network/ResponseModel.dart';
-import '../providers/MarketViewProvider.dart';
 import 'ui_helper/ShimmerMartketWidget.dart';
 
 class MarketViewPage extends StatefulWidget {

@@ -1,14 +1,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_course_a/providers/CryptoDataProvider.dart';
-import 'package:flutter_course_a/providers/MarketViewProvider.dart';
-import 'package:flutter_course_a/providers/ThemeProvider.dart';
-import 'package:flutter_course_a/providers/UserDataProvider.dart';
-import 'package:flutter_course_a/ui/MainWrapper.dart';
-import 'package:flutter_course_a/ui/SignUpScreen.dart';
-import 'package:flutter_course_a/ui/ui_helper/ThemeSwitcher.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'Presentation/ui/MainWrapper.dart';
+import 'Presentation/ui/SignUpScreen.dart';
+import 'logic/providers/CryptoDataProvider.dart';
+import 'logic/providers/MarketViewProvider.dart';
+import 'logic/providers/ThemeProvider.dart';
+import 'logic/providers/UserDataProvider.dart';
 
 
 
@@ -50,10 +51,25 @@ class _MyMaterialAppState extends State<MyMaterialApp> {
             theme: MyThemes.lightTheme,
             darkTheme: MyThemes.darkTheme,
             debugShowCheckedModeBanner: false,
-            home: const Directionality(
-              textDirection: TextDirection.ltr,
-              // child: MainWrapper(),
-              child: SignUpScreen(),
+            home: FutureBuilder<SharedPreferences>(
+              future: SharedPreferences.getInstance(),
+              builder: (context, snapshot){
+                if(snapshot.hasData){
+                  SharedPreferences sharedPreferences = snapshot.data!;
+                  var loggedInState = sharedPreferences.getBool("LoggedIn") ?? false;
+
+                  if(loggedInState){
+                    return const MainWrapper();
+                  }else{
+                    return const SignUpScreen();
+                  }
+
+                }else{
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
             ),
           );
         }

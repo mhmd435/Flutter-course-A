@@ -1,15 +1,15 @@
 
 import 'package:flutter/cupertino.dart';
-import '../models/UserModel.dart';
-import '../network/ApiProvider.dart';
-import '../network/ResponseModel.dart';
+
+import '../../data/data_source/ApiProvider.dart';
+import '../../data/data_source/ResponseModel.dart';
+import '../../data/models/UserModel.dart';
 
 class UserDataProvider extends ChangeNotifier{
   ApiProvider apiProvider = ApiProvider();
 
   late dynamic dataFuture;
   ResponseModel? registerStatus;
-  var loginStatus;
   var error;
   var response;
 

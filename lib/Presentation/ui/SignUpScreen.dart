@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-
-import '../network/ResponseModel.dart';
-import '../providers/UserDataProvider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../data/data_source/ResponseModel.dart';
+import '../../data/models/UserModel.dart';
+import '../../logic/providers/UserDataProvider.dart';
 import 'MainWrapper.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -337,7 +338,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 case Status.LOADING:
                                   return CircularProgressIndicator();
                                 case Status.COMPLETED:
-                                  // savedLogin(userDataProvider.registerStatus?.data);
+                                  savedLogin(userDataProvider.registerStatus?.data);
                                   WidgetsBinding.instance!.addPostFrameCallback((timeStamp) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const MainWrapper())));
                                   return signupBtn();
                                 case Status.ERROR:
@@ -419,5 +420,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
         child: const Text('Sign Up'),
       ),
     );
+  }
+
+  Future<void> savedLogin(UserModel model) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    prefs.setString("user_token", model.token!);
+    prefs.setBool("LoggedIn", true);
   }
 }
