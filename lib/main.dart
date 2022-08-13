@@ -23,7 +23,7 @@ void main(){
     MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (context) => ThemeProvider()),
-          ChangeNotifierProvider(create: (context) => CryptoDataProvider()),
+          // ChangeNotifierProvider(create: (context) => CryptoDataProvider()),
           ChangeNotifierProvider(create: (context) => MarketViewProvider()),
           ChangeNotifierProvider(create: (context) => UserDataProvider()),
         ],

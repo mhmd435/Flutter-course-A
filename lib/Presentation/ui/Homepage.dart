@@ -27,18 +27,7 @@ class _HomePageState extends State<HomePage> {
     initialPage: 0,
   );
 
-  var defaultChoiceIndex = 0;
-
   final List<String> _choicesList = ['Top MarketCaps', 'Top Gainers', 'Top Losers'];
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-    final cryptoProvider = Provider.of<CryptoDataProvider>(context, listen: false);
-    cryptoProvider.getTopMarketCapData();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -143,37 +132,39 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
 
+              /// choice chip
               Padding(
                 padding: const EdgeInsets.only(right: 5.0, left: 5),
                 child: Row(
                   children: [
-                    Wrap(
-                      spacing: 8,
-                      children: List.generate(_choicesList.length, (index) {
-                        return ChoiceChip(
-                            label: Text(
-                            _choicesList[index],
-                            style: textTheme.titleSmall),
-                            selected: defaultChoiceIndex == index,
-                            selectedColor: Colors.blue,
-                            onSelected: (value){
-                              setState(() {
-                                defaultChoiceIndex = value ? index : defaultChoiceIndex;
-                                switch(index){
-                                  case 0:
-                                    cryptoProvider.getTopMarketCapData();
-                                    break;
-                                  case 1:
-                                    cryptoProvider.getTopGainersData();
-                                    break;
-                                  case 2:
-                                    cryptoProvider.getTopLosersData();
-                                    break;
+                    Consumer<CryptoDataProvider>(
+                      builder: (context, cryptoDataProvider, child){
+                          return Wrap(
+                          spacing: 8,
+                          children: List.generate(_choicesList.length, (index) {
+                            return ChoiceChip(
+                                label: Text(
+                                    _choicesList[index],
+                                    style: textTheme.titleSmall),
+                                selected: cryptoDataProvider.defaultChoiceIndex == index,
+                                selectedColor: Colors.blue,
+                                onSelected: (value){
+                                    switch(index){
+                                      case 0:
+                                        cryptoProvider.getTopMarketCapData();
+                                        break;
+                                      case 1:
+                                        cryptoProvider.getTopGainersData();
+                                        break;
+                                      case 2:
+                                        cryptoProvider.getTopLosersData();
+                                        break;
+                                    }
                                 }
-                              });
-                            }
+                            );
+                          }),
                         );
-                      }),
+                        },
                     )
                   ],
                 ),

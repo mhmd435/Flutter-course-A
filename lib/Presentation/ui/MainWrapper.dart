@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_course_a/Presentation/ui/ui_helper/BottomNav.dart';
+import 'package:flutter_course_a/logic/providers/CryptoDataProvider.dart';
+import 'package:provider/provider.dart';
 import 'Homepage.dart';
 import 'MarketViewPage.dart';
 import 'ProfilePage.dart';
@@ -29,7 +31,9 @@ class _MainWrapperState extends State<MainWrapper> {
       body: PageView(
         controller: _myPage,
         children: [
-          HomePage(),
+          ChangeNotifierProvider<CryptoDataProvider>(
+              create: (_) => CryptoDataProvider(),
+              child: HomePage()),
           MarketViewPage(),
           ProfilePage(),
           WatchListPage()
